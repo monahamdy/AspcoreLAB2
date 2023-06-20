@@ -1,0 +1,31 @@
+﻿@using AspcoreLAB2.ViewModel;
+
+@model List<TraineeCourseCrsResultViewModel>;
+
+@{
+    ViewData["Title"] = "ShowCrsResult";
+}
+
+<h1>ShowCrsResult</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Grade</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="color:@item.Color">
+                <td >@item.TraineeName</td>
+                <td>@item.TraineeGrade
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

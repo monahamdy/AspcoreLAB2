@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_myLayout";
+
+    ViewData["Title"] = "Index";
+    int i = 1;
+}
+
+@model List<Instructor>
+<div class="p-5 m-5">
+
+    <form action="/Instructor/search" class="text-center d-flex justify-content-center">
+        <input type="text" name="Name" id="Name" class="form-control w-25 me-2" />
+        <button type="submit" class="btn btn-success">Search</button>
+
+    </form>
+
+
+    <a href="/Instructor/New" class="btn btn-success m-5">New  </a>
+
+    <table class="table " align="center">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Department</th>
+                <th scope="col">Course</th>
+                <th scope="col">Image</th>
+                <th scope="col">Details</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody >
+            @foreach (var item in Model)
+            {
+                <tr >
+                    <td class="text-success">@(i++)</td>
+                    <td>@item.Name</td>
+                    <td>@item.Address</td>
+                    <td>@item.Salary</td>
+
+
+                  
+                    <td>@item.Department?.Name</td>
+                    <td>@item.Course?.CourseName</td>
+                    <td>
+                        <img style="width:70px ; height:70px;" class="img-fluid" src="~/images/@item.Img"
+                             alt="Card image cap" />
+                    </td>
+
+                    <td>
+                        <a href="/Instructor/details/@item.Id"class="text-info">
+                         Details
+                        </a>
+                        <br>
+                        <a href="/Instructor/edit/@item.Id" class="text-success">
+                            Edit
+
+                        </a>
+                        <br>
+                        <a href="/Instructor/delete/@item.Id" class="text-danger ">
+                          delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,52 @@
+﻿@model Course
+@{
+    Layout = "_myLayout";
+
+    ViewData["Title"] = "New";
+    SelectList deptItems =
+      new SelectList(ViewBag.DeptList, "Id", "Name");
+
+}
+<style>
+    span {
+        font-size: small;
+    }
+</style>
+
+ <form  method="post" asp-controller="course" asp-action="New" asp-route-id="@Model?.Id" class="p-5 lead">
+    <div class="p-2 w-50">
+        <label asp-for="CourseName" class="p-2">
+        </label>
+        <input class="form-control" asp-for="CourseName" value="@Model?.CourseName" />
+        <span asp-validation-for="CourseName" class="text-danger ps-2 text-lowercase"></span>
+    </div>
+    <div class="p-2 w-50">
+        <label asp-for="Degree" class="p-2"></label>
+        <input class="form-control" asp-for="Degree" value="@Model?.Degree" />
+        <span asp-validation-for="Degree" class="text-danger ps-2 text-lowercase"></span>
+
+    </div>
+    <div class="p-2 w-50">
+        <label asp-for="MinDegree" class="p-2"></label>
+        <input class="form-control" asp-for="MinDegree" value="@Model?.MinDegree" />
+        <span asp-validation-for="MinDegree" class="text-danger ps-2 text-lowercase"></span>
+
+    </div>
+
+    <div class="p-2 w-50">
+        <label asp-for="dept_id" class="p-2">Department</label>
+        <select class="form-control" asp-for="dept_id" asp-items="deptItems" style="width:100%">
+            <option value="0">Select Department</option>
+        </select>
+    </div>
+    
+
+    <input type="submit" value="Added" class="btn btn-success m-3" />
+</form>
+
+<a asp-action="index" class="ps-5 ms-3">back to list</a>
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

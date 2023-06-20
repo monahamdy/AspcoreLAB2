@@ -1,0 +1,85 @@
+﻿@model Instructor
+@{
+    Layout = "_myLayout";
+
+    ViewData["Title"] = "New";
+}
+
+
+<form method="post" action="/Instructor/New" class="p-5 pb-2 m-5">
+
+    <div class="p-2 w-50" >
+        <label>Name </label>
+        <input type="text" name="Name" id="Name" value="@Model?.Name" class="form-control" />
+    </div>
+
+    <div class="p-2 w-50">
+        <label>Salary </label>
+        <input type="number" name="Salary" id="Salary" value="@Model?.Salary" class="form-control" />
+    </div>
+
+
+    <div class="p-2 w-50">
+        <label>Address </label>
+        <input type="text" name="Address" id="Address" value="@Model?.Address" class="form-control" />
+    </div>
+
+
+    <div class="p-2 w-50">
+        <label>Image</label>
+        <input type="file" name="Img" id="Image" value="@Model?.Img" class="form-control" />
+    </div>
+
+
+    <div class="p-2 w-50">
+        <label for="Dept_Id" class="form-label" >Department</label>
+
+        <select id="Dept_Id" class="form-control" name="Dept_Id" style="width:100%" onchange="GetDeptData()">
+            <option value="0">Select Departmen</option>
+
+            @foreach (var dept in ViewBag.Depts)
+            {
+                <option value="@dept.Id">@dept.Name</option>
+            }
+        </select>
+    </div>
+    <div >
+        <label for="Crs_Id" class="form-label">Course</label>
+
+        <select id="Crs_Id" class="form-control" name="Crs_Id" style="width:100%">
+            <option value="0">Select Course</option>
+
+            @foreach (var crs in ViewBag.Crses)
+            {
+                <option value="@crs.Id">@crs.CourseName</option>
+            }
+        </select>
+    </div>
+
+    <input type="submit" value="Adding" class="btn btn-success " />
+</form>
+
+<a asp-action="index">back to list</a>
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    <script>
+        function GetDeptData(){
+            var deptId = document.getElementById("Dept_Id").value;
+            console.log(deptId)
+            $.ajax({
+                url: "/Instructor/GetCourseByDept?deptid=" + deptId,
+                success: function (result) {
+                    console.log(result);
+                    document.getElementById("Crs_Id").innerHTML = "";
+                    for(let i of result){
+                        document.getElementById("Crs_Id").innerHTML+=
+                            "<option value='" + i.id + "'>" + i.courseName + "</option>"
+
+                    }
+                }
+            });
+
+        }
+    </script>
+}
